@@ -8,3 +8,5 @@ export type Todo = {
     endDate: FireDateType
     done: boolean
 }
+
+export type TodoCreateType = Omit<Todo, 'id'>
