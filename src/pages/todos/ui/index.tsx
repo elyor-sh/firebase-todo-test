@@ -3,13 +3,12 @@ import {observer} from "mobx-react-lite";
 import {getInstance} from "../../../shared/lib";
 import {TodoApi} from "../../../entities/todo";
 import {TodoModel} from "../../../entities/todo/model";
+import {TodoCard} from "../../../entities/todo/ui";
 
 const todoApi = getInstance(TodoApi)
 const todoModel = getInstance(TodoModel)
 
 const TodosPage = observer(() => {
-
-    console.log('todos', todoModel.todos)
 
     useEffect(() => {
         (async () => {
@@ -19,7 +18,16 @@ const TodosPage = observer(() => {
 
     return (
         <>
-
+            {
+                todoModel.todos.map(todo => (
+                    <TodoCard
+                        key={todo.id}
+                        data={todo}
+                        handleCompleted={(t) => {}}
+                        handleDelete={() => {}}
+                    />
+                ))
+            }
         </>
     );
 });

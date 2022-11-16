@@ -1,12 +1,14 @@
 import React from 'react';
-import './global.scss'
+import './global.less'
 import {Pages} from "../pages";
+import {Toaster} from "../shared/ui";
 
 const App = () => {
     return (
-        <div>
+        <>
+            <Toaster />
             <Pages />
-        </div>
+        </>
     );
 };
 

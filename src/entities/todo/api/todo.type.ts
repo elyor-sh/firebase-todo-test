@@ -6,4 +6,5 @@ export type Todo = {
     description: string
     files: string[]
     endDate: FireDateType
+    done: boolean
 }
