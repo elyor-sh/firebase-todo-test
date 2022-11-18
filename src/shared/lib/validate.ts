@@ -9,7 +9,7 @@ export class Validate {
             return  false
         }
 
-        return name.length > 0
+        return name.trim().length > 0
     }
 
 }
