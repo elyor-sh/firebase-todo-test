@@ -1,7 +1,7 @@
 import { makeAutoObservable } from "mobx";
 import { inject, injectable, singleton } from "tsyringe";
 import { Todo, TodoCreateType } from "../../../entities/todo";
-import { DateLib } from "../../../shared/lib";
+import { DateLib, Validate } from "../../../shared/lib";
 
 @singleton()
 @injectable()
@@ -27,10 +27,15 @@ export class TodoUpdateModel {
     public files: File[] = []
 
     constructor(
-        @inject(DateLib) private readonly dateLib: DateLib
+        @inject(DateLib) private readonly dateLib: DateLib,
+        @inject(Validate) private readonly validate: Validate
     ) {
         makeAutoObservable(this, {}, {autoBind: true})
         this.setEndDate(this.dateLib.now)
+    }
+
+    public get disabled (): boolean {
+        return !this.validate.notEmpty(this.params.title)
     }
 
     public setOpenModal (p: boolean): void {

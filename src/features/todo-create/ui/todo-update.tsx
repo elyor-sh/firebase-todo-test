@@ -75,7 +75,7 @@ const TodoUpdate = observer(() => {
                         />
                     </div>
                     <div className={cl.btn__wrapper}>
-                        <Button onClick={() => todoApi.update(todoUpdateModel.todoId, todoUpdateModel.params, todoUpdateModel.files, todoUpdateModel.refresh)}>
+                        <Button disabled={todoUpdateModel.disabled} onClick={() => todoApi.update(todoUpdateModel.todoId, todoUpdateModel.params, todoUpdateModel.files, todoUpdateModel.refresh)}>
                             Сохранить
                         </Button>
                     </div>

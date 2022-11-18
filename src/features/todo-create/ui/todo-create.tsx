@@ -66,7 +66,7 @@ const TodoCreate = observer(() => {
                     />
                 </div>
                 <div className={cl.btn__wrapper}>
-                    <Button onClick={() => todoApi.create(todoCreateModel.params, todoCreateModel.files, callback)}>
+                    <Button disabled={todoCreateModel.disabled} onClick={() => todoApi.create(todoCreateModel.params, todoCreateModel.files, callback)}>
                         Создать
                     </Button>
                 </div>

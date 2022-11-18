@@ -2,14 +2,14 @@ import {injectable, singleton} from "tsyringe"
 
 @singleton()
 @injectable()
-export default class Validate {
+export class Validate {
 
     public notEmpty (name: string): boolean {
         if(!name){
             return  false
         }
 
-        return name.length > 3
+        return name.length > 0
     }
 
 }

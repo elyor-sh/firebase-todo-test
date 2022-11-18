@@ -1,8 +1,8 @@
 import {inject, singleton} from "tsyringe";
 import {makeAutoObservable} from "mobx";
-import {TodoCreateType} from "../../../entities/todo";
-import { DateLib } from "../../../shared/lib";
 import React from "react";
+import {TodoCreateType} from "../../../entities/todo";
+import { DateLib, Validate } from "../../../shared/lib";
 
 @singleton()
 export class TodoCreateModel {
@@ -23,10 +23,15 @@ export class TodoCreateModel {
     public files: File[] = []
 
     constructor(
-        @inject(DateLib) private readonly dateLib: DateLib
+        @inject(DateLib) private readonly dateLib: DateLib,
+        @inject(Validate) private readonly validate: Validate
     ) {
         makeAutoObservable(this, {}, {autoBind: true})
         this.setEndDate(this.dateLib.now)
+    }
+
+    public get disabled (): boolean {
+        return !this.validate.notEmpty(this.params.title)
     }
 
     public setParams (key: keyof TodoCreateType, value: any): void {
