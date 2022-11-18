@@ -17,9 +17,9 @@ export class TodoApi {
     }
 
     public async getAll (): Promise<Todo[]> {
-        const todos = await this.httpService.getAll<Todo>() 
-        this.todoModel.setTodos(todos)
-        return todos
+        const todos = await this.httpService.getAll<Todo>()
+        this.todoModel.setTodos(todos as Todo[])
+        return todos as Todo[]
     }
 
     public async create (params: TodoCreateType, files: File[], cb: () => void): Promise<void> {

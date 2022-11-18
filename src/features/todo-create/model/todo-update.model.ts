@@ -68,7 +68,10 @@ export class TodoUpdateModel {
     }
 
     public setParams (key: keyof TodoCreateType, value: any): void {
-        this.params[key] = value
+        this.params = {
+            ...this.params,
+            [key]: value
+        }
     }
 
     public setEndDate (date: string | number): void {

@@ -1,6 +1,6 @@
 import { inject, injectable } from "tsyringe";
 import { v4 } from 'uuid'
-import { collection, getDocs, addDoc, updateDoc, doc, deleteDoc } from 'firebase/firestore'
+import { collection, getDocs, addDoc, updateDoc, doc, deleteDoc, DocumentReference, DocumentData } from 'firebase/firestore'
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage'
 import { fireDB, FireDbPaths, fireStorage } from "../config";
 import { LoadingSpinnerModel } from "../ui";
@@ -22,7 +22,7 @@ export class HttpService {
         this.collection = collection(fireDB, path)
     }
 
-    public async getAll<T extends { id: string }>(): Promise<T[]> {
+    public async getAll<T extends { id: string }>(): Promise<T[] | undefined> {
 
         try {
 
@@ -39,7 +39,7 @@ export class HttpService {
         }
     }
 
-    public async create<T>(params: T): Promise<void> {
+    public async create<T extends { [x: string]: any; }>(params: T): Promise<void> {
 
         try {
 
@@ -61,7 +61,7 @@ export class HttpService {
             this.loadingSpinnerModel.setLoading(true)
 
             const c_doc = doc(fireDB, this.path, id)
-            await updateDoc(c_doc, params)
+            await updateDoc<DocumentData>(c_doc as DocumentReference<DocumentData>, params)
 
         } catch (e) {
             console.log(e);
